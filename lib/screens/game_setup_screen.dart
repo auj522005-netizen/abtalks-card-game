@@ -23,17 +23,31 @@ class _GameSetupScreenState extends State<GameSetupScreen> {
   }
 
   Future<void> _loadSavedNames() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _savedNames = prefs.getStringList('abtalks_saved_players') ?? [];
-    });
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      if (mounted) {
+        setState(() {
+          _savedNames = prefs.getStringList('abtalks_saved_players') ?? [];
+        });
+      }
+    } catch (e) {
+      // Silently fail - saved names are optional
+      debugPrint('Failed to load saved names: $e');
+    }
   }
 
   Future<void> _saveNames() async {
-    final prefs = await SharedPreferences.getInstance();
-    final allNames = <String>{..._savedNames, ..._players}.toList();
-    await prefs.setStringList('abtalks_saved_players', allNames);
-    setState(() { _savedNames = allNames; });
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final allNames = <String>{..._savedNames, ..._players}.toList();
+      await prefs.setStringList('abtalks_saved_players', allNames);
+      if (mounted) {
+        setState(() { _savedNames = allNames; });
+      }
+    } catch (e) {
+      // Silently fail - saving names is optional
+      debugPrint('Failed to save names: $e');
+    }
   }
 
   @override
