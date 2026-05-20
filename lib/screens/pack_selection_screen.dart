@@ -21,16 +21,25 @@ class _PackSelectionScreenState extends State<PackSelectionScreen> {
 
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(color: Color(0xFF0A0A0A)),
+        decoration: const BoxDecoration(
+          gradient: RadialGradient(
+            center: Alignment(0.0, -0.3),
+            radius: 1.2,
+            colors: [Color(0xFF1A0808), Color(0xFF0F0505), Color(0xFF0A0A0A)],
+          ),
+        ),
         child: SafeArea(
           child: Column(children: [
             // Header
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Row(children: [
-                IconButton(icon: const Icon(Icons.arrow_back_rounded, color: Colors.white), onPressed: () => Navigator.pop(context)),
+                IconButton(
+                  icon: const Icon(Icons.arrow_back_rounded, color: Colors.white54),
+                  onPressed: () => Navigator.pop(context),
+                ),
                 const Spacer(),
-                const Text('اختر الباكدج', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                const Text('اختر الباكدج', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
                 const Spacer(),
                 const SizedBox(width: 48),
               ]),
@@ -38,14 +47,14 @@ class _PackSelectionScreenState extends State<PackSelectionScreen> {
             // Packs grid
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: GridView.builder(
                   itemCount: packs.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    childAspectRatio: 0.72,
+                    mainAxisSpacing: 14,
+                    crossAxisSpacing: 14,
+                    childAspectRatio: 0.68,
                   ),
                   itemBuilder: (context, index) {
                     final pack = packs[index];
@@ -70,41 +79,71 @@ class _PackSelectionScreenState extends State<PackSelectionScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [pack.color.withOpacity(0.15), pack.color.withOpacity(0.05)],
+            colors: [
+              pack.color.withOpacity(0.12),
+              pack.color.withOpacity(0.04),
+              const Color(0xFF0A0A0A).withOpacity(0.9),
+            ],
           ),
-          border: Border.all(color: pack.color.withOpacity(0.4), width: 1.5),
+          border: Border.all(color: pack.color.withOpacity(0.25), width: 1),
+          boxShadow: [
+            BoxShadow(
+              color: pack.color.withOpacity(0.08),
+              blurRadius: 20,
+              offset: const Offset(0, 8),
+            ),
+          ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            // Icon
-            Container(
-              width: 44, height: 44,
-              decoration: BoxDecoration(color: pack.color.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
-              child: Icon(pack.icon, color: pack.color, size: 22),
-            ),
-            const SizedBox(height: 12),
-            // Name
-            Text(pack.name, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
-            const SizedBox(height: 4),
-            // Description
-            Text(pack.description, style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 11, height: 1.4), maxLines: 2, overflow: TextOverflow.ellipsis),
-            const Spacer(),
-            // Stats
+            // Icon + color dot
             Row(children: [
-              _miniStat('${pack.questionCount}', Icons.help_outline_rounded, pack.color),
-              const SizedBox(width: 8),
-              _miniStat('${pack.freeCount}', Icons.card_giftcard_rounded, pack.color),
-              const SizedBox(width: 8),
-              _miniStat('${pack.abHashCount}', Icons.tag_rounded, pack.color),
+              Container(
+                width: 42, height: 42,
+                decoration: BoxDecoration(
+                  color: pack.color.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: pack.color.withOpacity(0.3), width: 1),
+                ),
+                child: Icon(pack.icon, color: pack.color, size: 20),
+              ),
+              const Spacer(),
+              // Color indicator dot
+              Container(
+                width: 8, height: 8,
+                decoration: BoxDecoration(
+                  color: pack.color,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(color: pack.color.withOpacity(0.5), blurRadius: 6),
+                  ],
+                ),
+              ),
             ]),
-            const SizedBox(height: 8),
-            // Total
+            const SizedBox(height: 14),
+            // Name
+            Text(pack.name, style: const TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold), maxLines: 1, overflow: TextOverflow.ellipsis),
+            const SizedBox(height: 6),
+            // Description
+            Text(pack.description, style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 11, height: 1.4), maxLines: 2, overflow: TextOverflow.ellipsis),
+            const Spacer(),
+            // Bottom stats strip
             Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              decoration: BoxDecoration(color: pack.color, borderRadius: BorderRadius.circular(8)),
-              child: Center(child: Text('${pack.totalCards} بطاقة', style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold))),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              decoration: BoxDecoration(
+                color: const Color(0xFF0A0A0A).withOpacity(0.6),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.white.withOpacity(0.04)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _pillStat('${pack.questionCount}Q', pack.color),
+                  _pillStat('${pack.freeCount}F', pack.color),
+                  _pillStat('${pack.abHashCount}AB', pack.color),
+                ],
+              ),
             ),
           ]),
         ),
@@ -112,11 +151,14 @@ class _PackSelectionScreenState extends State<PackSelectionScreen> {
     );
   }
 
-  Widget _miniStat(String value, IconData icon, Color color) {
-    return Row(mainAxisSize: MainAxisSize.min, children: [
-      Icon(icon, color: color, size: 12),
-      const SizedBox(width: 2),
-      Text(value, style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.bold)),
-    ]);
+  Widget _pillStat(String text, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.12),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Text(text, style: TextStyle(color: color.withOpacity(0.9), fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 0.3)),
+    );
   }
 }
