@@ -170,7 +170,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     const SizedBox(height: 16),
     if (_state.currentCard?.type == CardType.free) TextField(
       textDirection: TextDirection.rtl, decoration: InputDecoration(hintText: 'اكتب سؤالك الحر هنا...', hintStyle: TextStyle(color: Colors.white.withOpacity(0.3)), filled: true, fillColor: Colors.white.withOpacity(0.05), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.white.withOpacity(0.1))), enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.white.withOpacity(0.1))), contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14)),
-      style: const TextStyle(color: Colors.white, fontSize: 15), onChanged: (v) => setState(() => _state = GameEngine.setCustomQuestion(_state, v))),
+      style: const TextStyle(color: Colors.white, fontSize: 15),
+      onChanged: (v) => setState(() => _state = GameEngine.setCustomQuestion(_state, v)),
     ),
   ]);
 
