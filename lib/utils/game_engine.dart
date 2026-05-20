@@ -209,7 +209,7 @@ List<GameCard> _allQuestions() {
 
   // 3 Free cards
   for (int i = 1; i <= 3; i++) {
-    cards.add(const GameCard(id: 'free$i', text: 'حرية كاملة\nاطرح أي سؤال تريده', type: CardType.free));
+    cards.add(GameCard(id: 'free$i', text: 'حرية كاملة\nاطرح أي سؤال تريده', type: CardType.free));
   }
 
   // 20 AB# cards

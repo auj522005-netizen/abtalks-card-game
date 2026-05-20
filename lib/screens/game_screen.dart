@@ -177,7 +177,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   Widget _dieRolling() {
     final faces = DieFace.values;
     final idx = (_dieCtrl.value * faces.length * 3).floor() % faces.length;
-    return AnimatedBuilder(listenable: _dieCtrl, builder: (_, __) => Transform.rotate(angle: _dieCtrl.value * pi * 4, child: _dieWidget(faces[idx])));
+    return AnimatedBuilder(animation: _dieCtrl, builder: (_, __) => Transform.rotate(angle: _dieCtrl.value * pi * 4, child: _dieWidget(faces[idx])));
   }
 
   Widget _dieResult() {
@@ -256,6 +256,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       ..._state.players.map((p) => Container(margin: const EdgeInsets.only(bottom: 6), padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: Colors.white.withOpacity(0.05), borderRadius: BorderRadius.circular(10)),
         child: Row(children: [const Icon(Icons.person_rounded, color: Color(0xFFE94560), size: 18), const SizedBox(width: 8), Text(p.name, style: const TextStyle(color: Colors.white, fontSize: 15)), const Spacer(), Text('${p.abHashCards} AB# متبقية', style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 12))]))),
     ]),
-    actions: [TextButton(onPressed: () { Navigator.pop(ctx); Navigator.pop(context); }, child: Container(width: double.infinity, padding: const EdgeInsets.symmetric(vertical: 14), decoration: BoxDecoration(color: const Color(0xFFE94560), borderRadius: BorderRadius.circular(12)), child: const Center(child: Text('العودة للرئيسية', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16))))],
+    actions: [
+      TextButton(
+        onPressed: () { Navigator.pop(ctx); Navigator.pop(context); },
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          decoration: BoxDecoration(color: const Color(0xFFE94560), borderRadius: BorderRadius.circular(12)),
+          child: const Center(child: Text('العودة للرئيسية', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16))),
+        ),
+      ),
+    ],
   ));
 }
