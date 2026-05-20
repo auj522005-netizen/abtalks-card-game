@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
-import 'screens/game_setup_screen.dart';
-import 'screens/game_screen.dart';
 
 void main() {
   runApp(const ABtalksApp());
@@ -16,9 +14,9 @@ class ABtalksApp extends StatelessWidget {
       title: 'ABtalks Card Game',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1A1A2E), brightness: Brightness.dark),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFE94560), brightness: Brightness.dark),
         useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xFF0F0F23),
+        scaffoldBackgroundColor: const Color(0xFF0A0A0A),
       ),
       home: const SplashScreen(),
     );
@@ -57,13 +55,13 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xFF1A1A2E), Color(0xFF16213E), Color(0xFF0F3460)]),
+          gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xFF0A0A0A), Color(0xFF1A1A1A), Color(0xFF0F0F0F)]),
         ),
         child: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             ScaleTransition(scale: _scale, child: FadeTransition(opacity: _fade, child: Container(
               width: 160, height: 160,
-              decoration: BoxDecoration(shape: BoxShape.circle, gradient: const LinearGradient(colors: [Color(0xFFE94560), Color(0xFF533483)]), boxShadow: [BoxShadow(color: const Color(0xFFE94560).withOpacity(0.5), blurRadius: 30, spreadRadius: 5)]),
+              decoration: BoxDecoration(shape: BoxShape.circle, color: const Color(0xFFE94560), boxShadow: [BoxShadow(color: const Color(0xFFE94560).withOpacity(0.5), blurRadius: 30, spreadRadius: 5)]),
               child: const Center(child: Text('AB', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 2))),
             ))),
             const SizedBox(height: 30),

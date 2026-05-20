@@ -30,9 +30,9 @@ class GameCard {
   Color get cardColor {
     switch (type) {
       case CardType.question:
-        return const Color(0xFF1A1A2E);
+        return const Color(0xFF1A1A1A);
       case CardType.free:
-        return const Color(0xFF533483);
+        return const Color(0xFFE94560);
       case CardType.abHash:
         return const Color(0xFFE94560);
     }
