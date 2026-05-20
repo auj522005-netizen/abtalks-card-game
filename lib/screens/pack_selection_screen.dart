@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'game_setup_screen.dart';
+import '../models/card_model.dart';
 import '../utils/game_engine.dart';
-import '../widgets/pulse_widget.dart';
 
 class PackSelectionScreen extends StatefulWidget {
   const PackSelectionScreen({super.key});
@@ -9,17 +9,11 @@ class PackSelectionScreen extends StatefulWidget {
   State<PackSelectionScreen> createState() => _PackSelectionScreenState();
 }
 
-class _PackSelectionScreenState extends State<PackSelectionScreen> with SingleTickerProviderStateMixin {
-  late AnimationController _pulse;
-
+class _PackSelectionScreenState extends State<PackSelectionScreen> {
   @override
   void initState() {
     super.initState();
-    _pulse = AnimationController(vsync: this, duration: const Duration(seconds: 2))..repeat(reverse: true);
   }
-
-  @override
-  void dispose() { _pulse.dispose(); super.dispose(); }
 
   @override
   Widget build(BuildContext context) {
