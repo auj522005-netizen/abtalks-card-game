@@ -356,7 +356,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 width: 100,
                 height: 16,
                 decoration: BoxDecoration(
-                  shape: BoxShape.ellipse,
+                  borderRadius: BorderRadius.circular(50),
                   color: const Color(0xFFE94560).withOpacity(shadowOpacity),
                   boxShadow: [
                     BoxShadow(
