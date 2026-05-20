@@ -14,15 +14,12 @@ workflows:
         - pattern: main
           include: true
     scripts:
-      - name: Setup Gradle wrapper
-        script: |
-          cd android
-          chmod +x gradlew
-          curl -sL https://raw.githubusercontent.com/gradle/gradle/v8.3.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar
+      - name: Regenerate platform files
+        script: flutter create . --platforms android,ios --project-name abtalks_card_game
       - name: Get Flutter packages
         script: flutter pub get
       - name: Build Android APK
-        script: flutter build apk --release --split-per-abi
+        script: flutter build apk --release
     artifacts:
       - build/**/outputs/**/*.apk
 
