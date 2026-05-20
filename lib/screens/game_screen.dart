@@ -7,7 +7,8 @@ import '../widgets/pulse_widget.dart';
 
 class GameScreen extends StatefulWidget {
   final List<String> playerNames;
-  const GameScreen({super.key, required this.playerNames});
+  final String packId;
+  const GameScreen({super.key, required this.playerNames, required this.packId});
   @override
   State<GameScreen> createState() => _GameScreenState();
 }
@@ -25,7 +26,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _state = GameEngine.initializeGame(widget.playerNames);
+    _state = GameEngine.initializeGame(widget.playerNames, widget.packId);
     _dieCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 2000));
     _pulseCtrl = AnimationController(vsync: this, duration: const Duration(seconds: 1))..repeat(reverse: true);
 
